@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <button onclick="btnClick()">Get interface data</button>
+
+    <form action="http://localhost:3000/" method="get">
+        <input type="submit">
+    </form>
+
+    <img src="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png" alt="">
+
+    <a href="http://www.google.com">Google</a>
+    <div>
+        <iframe src="./inner.html" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        function btnClick() {
+            $.ajax({
+                url: "http://localhost:3000/",
+                type: 'GET',
+                dataType: "JSON",
+                success(data) {
+                    console.log(data);
+                }
+            })
+        }
+
+    </script>
+</body>
+
+</html>

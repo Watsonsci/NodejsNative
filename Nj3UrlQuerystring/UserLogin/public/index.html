@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+</head>
+
+<body>
+     Username: <input type="text" id="username">
+     Password: <input type="password" id="password">
+     <input type="button" id="btn" value="Login">
+     <!-- There are tags in html that are cross-domain a from img iframe -->
+     <img src="https://www.bootcdn.cn/assets/img/logo.png" alt="">
+
+
+     <script>
+         $('#btn').click(() => {
+             let username = $('#username').val()
+             let password = $('#password').val()
+
+             $.get({
+                 url: 'http://localhost:3000',
+                 data: { username, password },
+                 dataType:'json',//Can complete json conversion while accepting data
+                 success: (res) => {
+                     console.log(res);
+                     //let returnVal = JSON.parse(res);
+                     // let returnVal = res;
+                    
+                     // if(returnVal.code == 200){
+                     // console.log(returnVal.msg);
+                     // alert(`Welcome ${returnVal.data.username} login`)
+                     // }else if(returnVal.code == 100){
+                     // alert(returnVal.msg)
+                     // }
+                    
+                     if(res.code == 200){
+                         alert(`Welcome ${res.data.username} login`)
+                     }else if(res.code == 100){
+                         alert(res.msg)
+                     }
+                 }
+             })
+         })
+
+
+         //Cross-domain operation: same-origin policy: same URL, same port, cross-domain is to protect the access security of the website
+
+     </script>
+
+</body>
+
+</html>

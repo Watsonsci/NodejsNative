@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mock demo</title>
+    <script src="./JQuery2.1.4.js"></script>
+    <script src="./mock.js"></script>
+    <script src="./server.js"></script>
+</head>
+
+<body>
+    <h2>Mock data return</h2>
+    <button id="getDataBtn">getGet data</button>
+    <ul>
+    </ul>
+    <button id="updateDataBtn">Get after changing data</button>
+
+    <script>
+        $("#updateDataBtn").click(() => {
+            $.ajax({
+                url: 'http://www.xxx.com/link/update',
+                data: {
+                    "linkId": "3",
+                    "sitename": "sohu",
+                    "url": "http://www.sohu.com"
+                },
+                type: "post",
+                dataType: 'JSON',
+                success(res) {
+                    if (res.code == 200) {
+                        //alert("Data added successfully")
+                        console.log(res.data);
+                    }
+                }
+            })
+        })
+
+
+        $("#getDataBtn").click(() => {
+            //ajax gets data
+            $.ajax({
+                url: "http://www.xxx.com/link/list",
+                type: "get",
+                data: { name: 'tom', id: 123 },
+                dataType: 'JSON',
+                success(res) {
+                    if (res.code == 200) {
+                        const dataArr = res.data;
+                        let htmlStr = ""
+                        dataArr.forEach(item => {
+                            htmlStr += `<li>${item.sitename}</li>`
+                        });
+                        $("ul").html(htmlStr)
+
+                    } else {
+                        alert(res.msg)
+                    }
+
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

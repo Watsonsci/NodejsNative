@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+
+</head>
+<body>
+     <h1>Sorry, the page is lost</h1>
+     <a href="/">Return to main page</a>
+     <div>
+          Automatically jump back to homepage after <span id="seconds">3</span>seconds
+     </div>
+     <script>
+         let second = 3
+         setInterval(()=>{
+             document.getElementById("seconds").innerHTML = --second
+             if(second == 0){
+                 location.href="/"
+             }
+         },1000)
+     </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Student Management Platform</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" cross origin ="anonymous">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body>
+     <div class="container">
+         <h1>Student Management Platform</h1>
+         <div>
+             <a href="/8.1%20Interface/Student Management Platform/public/student/studentInsert.html">Add student information</a>
+             <a href="/8.1%20Interface/Student Management Platform/public/student/studentManager.html">View student information</a>
+         </div>
+         <div>
+             <h2>Add student information</h2>
+             <div class="mb-3">
+                 <label for="studentID" class="form-label">Student ID</label>
+                 <input type="text" class="form-control" id="studentID">
+               </div>
+             <div class="mb-3">
+                 <label for="studentName" class="form-label">Student Name</label>
+                 <input type="text" class="form-control" id="studentName">
+               </div>
+             <div class="mb-3">
+                 <label for="studentAge" class="form-label">Student age</label>
+                 <input type="text" class="form-control" id="studentAge">
+               </div>
+             <div class="mb-3">
+                 <label for="studentGender" class="form-label">Student Gender</label>
+                 <input type="text" class="form-control" id="studentGender">
+               </div>
+               <button class="btn btn-primary" id="submit">Add</button>
+         </div>
+     </div>
+
+     <script>
+         $("#submit").click(()=>{
+             let studentID = $("#studentID").val()
+             let studentName = $("#studentName").val()
+             let studentAge = $("#studentAge").val()
+             let studentGender = $("#studentGender").val()
+
+             $.post({
+                 url:"http://localhost:3000/student/insert",
+                 data:{studentID,studentName,studentAge,studentGender},
+                 dataType:"JSON",
+                 success(resultData){
+                    if(resultData.code==200){
+                     alert(resultData.msg)
+                    }
+                 }
+             })
+         })
+     </script>
+</body>
+</html>

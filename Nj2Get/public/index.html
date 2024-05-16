@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+</head>
+<body>
+     <a href="http://localhost:3000?name=tom">Open website</a>
+     <p>
+         <button onclick="btn()">Button</button>
+     </p>
+     <p>
+         <form action="http://localhost:3000" method="get">
+             Username <input type="text" name="username" value="">
+             <input type="submit" value="submit">
+         </form>
+     </p>
+    
+     <script>
+         function btn(){
+             let name = "mary"
+             let age = 20
+             location.href=`http://localhost:3000?username=${name}&userage=${age}`
+         }
+     </script>
+</body>
+</html>

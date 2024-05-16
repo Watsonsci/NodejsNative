@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mock demo</title>
+    <script src="./JQuery2.1.4.js"></script>
+    <script src="./mock.js"></script>
+    <script src="./server.js"></script>
+</head>
+
+<body>
+    <h2>Mock data return</h2>
+    <button id="getDataBtn">Get data</button>
+    <ul>
+
+    </ul>
+
+    <script>
+        $("#getDataBtn").click(() => {
+            //ajax gets data
+            $.ajax({
+                url: "http://www.xxx.com/link/list",
+                type: "get",
+                data: {},
+                dataType: 'JSON',
+                success(res) {
+                    if (res.code == 200) {
+                        const dataArr = res.data;
+                        let htmlStr = ""
+                        dataArr.forEach(item => {
+                            htmlStr += `<li>${item.sitename}</li>`
+                        });
+                        $("ul").html(htmlStr)
+
+                    } else {
+                        alert(res.msg)
+                    }
+
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

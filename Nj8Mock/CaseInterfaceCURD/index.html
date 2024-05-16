@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mock curd demo</title>
+    <script src="./JQuery2.1.4.js"></script>
+    <script src="./mock.js"></script>
+    <script src="./server.js"></script>
+</head>
+
+<body>
+    <h2>Add students</h2>
+    <div>
+        Student number: <input type="text" id="studentID">
+        Student name: <input type="text" id="studentName">
+        Student age: <input type="text" id="studentAge">
+        Student gender: <input type="text" id="studentGender">
+        <button id="addStudentBtn">Add</button>
+    </div>
+
+    <h2>Student list</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Student number</th>
+                <th>Student’s name</th>
+                <th>Age of students</th>
+                <th>Student gender</th>
+                <th>Student operation</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <h2>Modify students</h2>
+    <div>
+        Student number: <input type="text" id="updateStudentID" readonly>
+        Student name: <input type="text" id="updateStudentName">
+        Student age: <input type="text" id="updateStudentAge">
+        Student gender: <input type="text" id="updateStudentGender">
+        <button id="updateStudentBtn">Confirm modification</button>
+    </div>
+
+    <script>
+        $("#updateStudentBtn").click(() => {
+            let studentID = $("#updateStudentID").val()
+            let studentName = $("#updateStudentName").val()
+            let studentAge = $("#updateStudentAge").val()
+            let studentGender = $("#updateStudentGender").val()
+            $.ajax({
+                url: "http://www.xxx.com/students/update",
+                type: "post",
+                dataType: 'json',
+                data: { studentID, studentName, studentAge, studentGender },
+                success(res) {
+                    if (res.code == 200) {
+                        init()
+                    } else if (res.code == 100) {
+                        alert(res.msg)
+                    }
+                }
+            })
+
+        })
+
+
+        function updateStudent(id) {
+            $.ajax({
+                url: "http://www.xxx.com/student/findOne",
+                data: { id },
+                type: "get",
+                dataType: 'json',
+                success(res) {
+                    if (res.code == 200) {
+                        const student = res.data[0]
+                        $("#updateStudentID").val(student.studentID)
+                        $("#updateStudentName").val(student.studentName)
+                        $("#updateStudentAge").val(student.studentAge)
+                        $("#updateStudentGender").val(student.studentGender)
+
+
+                    }
+                }
+            })
+        }
+
+
+        $("#addStudentBtn").click(() => {
+            //Get the value entered by the user
+            let studentID = $("#studentID").val()
+            let studentName = $("#studentName").val()
+            let studentAge = $("#studentAge").val()
+            let studentGender = $("#studentGender").val()
+            //Submit like server
+            $.ajax({
+                url: 'http://www.xxx.com/students/add',
+                type: 'post',
+                dataType: 'JSON',
+                data: { studentID, studentName, studentAge, studentGender },
+                success(res) {
+                    if (res.code == 200) {
+                        rander(res.data)
+                    } else if (res.code == 100) {
+                        alert(res.msg)
+                    }
+                }
+            })
+
+        })
+
+
+        function init() {
+            $.ajax({
+                url: 'http://www.xxx.com/students/list',
+                type: 'get',
+                dataType: 'json',
+                success(res) {
+                    if (res.code == 200) {
+                        rander(res.data);
+                    }
+                }
+            })
+        }
+
+        //Client front-end populates the display page
+        function rander(dataList) {
+            let htmlStr = ""
+            dataList.forEach(item => {
+                htmlStr += `<tr>
+                 <td>${item.studentID}</td>
+                 <td>${item.studentName}</td>
+                 <td>${item.studentAge}</td>
+                 <td>${item.studentGender}</td>
+                 <td>
+                     <button onclick="updateStudent(${item.studentID})">Modify</button>
+                     <button onclick="deleteStudent(${item.studentID})">Delete</button>
+                 </td>
+              </tr>`
+            });
+            $("tbody").html(htmlStr)
+        }
+
+
+        function deleteStudent(itemID) {
+            $.ajax({
+                url: 'http://www.xxx.com/students/del',
+                type: 'post',
+                data: { itemID },
+                dataType: 'json',
+                success(res) {
+                    if (res.code == 200) {
+                        alert(res.msg)
+                        init()
+                    }
+                }
+            })
+        }
+
+        init()
+    </script>
+</body>
+
+</html>

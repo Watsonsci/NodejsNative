@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <link rel="stylesheet" href="./css/index.css">
+     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+</head>
+<body>
+     <h2>Search</h2>
+     <div>
+         <input type="text" id="keywords">
+         <input type="button" id="btn" value="SoSo">
+     </div>
+     <ul id="list">
+     </ul>
+
+     <script>
+         $("#btn").click(()=>{
+            let keywords = $("#keywords").val()
+            //ajax submission
+            $.post({
+             url:'http://localhost:3001',
+             data:{keywords},
+             dataType:"JSON",
+             success(data){
+                 if(data.code == 200){
+                     let htmlStr = ""
+                     data.data.searchData.forEach(item=>{
+                        htmlStr += `<li><a href="">${item.shopName} ${item.shopPrice}</a></li>`
+                     })
+                  $("#list").html(htmlStr)
+                 }
+             }
+            })
+         })
+     </script>
+</body>
+</html>

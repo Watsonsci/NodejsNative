@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rootPage</title>
+    <link rel="stylesheet" href="./public/css/root.css">
+    <script src="./public/javascript/root.js"></script>
+</head>
+<body>
+    <h1>root Page</h1>
+    <a href="/home">家页面</a>
+    <div>
+        这是你看到的服务器渲染的网页
+        <img src="./public/images/baidu.png" style="width: 150px;height: 100px;" alt="">
+    </div>
+    <button onclick="btnClick()">按钮触发事件</button>
+
+    <form action="/home" method="post">
+        用户名：<input type="text" name="username" id="username">
+        密码：<input type="text" name="password" id="password">
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>

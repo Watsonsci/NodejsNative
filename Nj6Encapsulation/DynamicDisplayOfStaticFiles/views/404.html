@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <h1>Sorry，页面走丢了</h1>
+    <a href="/">返回主页面</a>
+    <div>
+        <span id="seconds">3</span> 秒后自动跳转回首页
+    </div>
+    <script>
+        let second = 3
+        setInterval(()=>{
+            document.getElementById("seconds").innerHTML = --second
+            if(second == 0){
+                location.href="/"
+            }
+        },1000)
+    </script>
+</body>
+</html>
